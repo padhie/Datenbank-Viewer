@@ -5,6 +5,9 @@ Sammlung mehrere phpMyAdmin Versionen zum selber wälen
 
 # Changelog
 
+Version 2:
+- phpMyAdmin Version 4.4.10 hinzugefügt
+
 Version 1:
 - phpMyAdmin Version 4.4.6.1 hinzugefügt
 - phpMyAdmin Version 4.3.13.1 hinzugefügt
