@@ -5,6 +5,11 @@ Sammlung mehrere phpMyAdmin Versionen zum selber wälen
 
 # Changelog
 
+Version 3:
+- Umbau für mehrere Datenbankanwendungen
+- phpMyAdmin Version 4.5.1 hinzugefühgt
+- adminer Version 4.2.2 hinzugefühgt
+
 Version 2:
 - phpMyAdmin Version 4.4.10 hinzugefügt
 
