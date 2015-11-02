@@ -64,7 +64,7 @@
 			<option value=""> - Version w&auml;len - </option>
 			<?php foreach ($aAdminerList AS $sVersion => $aEntrys) : ?>
 				<optgroup label="Version <?php echo str_replace("_", ".",$sVersion); ?>">
-					<option value="css=<?php echo $sFile; ?>&version=<?php echo $sVersion; ?>"><?php echo $sFile; ?></option>
+					<option value="version=<?php echo $sVersion; ?>">default</option>
 					<?php foreach ($aEntrys AS $sFile) : ?>
 						<option value="css=<?php echo $sFile; ?>&version=<?php echo $sVersion; ?>"><?php echo $sFile; ?></option>
 					<?php endforeach; ?>
