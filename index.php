@@ -38,9 +38,30 @@
 <html>
 <head>
 	<title>Datenbank-View Collection</title>
+	<style type="text/css">
+		.box {
+			float: left;
+			margin: 25px;
+			border-radius: 5px;
+			-webkit-box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.75);
+			-moz-box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.75);
+			box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.75);
+			border: 2px solid rgba(2, 1, 1, 0.36);
+			padding: 25px;
+			text-align: center;
+		}
+		body {
+			width: 700px ;
+			margin-left: auto ;
+			margin-right: auto ;
+	  	}
+	  	h2 {
+	  		margin: 5px 0;
+	  	}
+	</style>
 </head>
 <body>
-	<div style="float:left;">
+	<div class="box">
 		<h2>phpMyAdmin</h2>
 		<select onchange="window.location.href='pma/'+this.value">
 			<option value=""> - Version w&auml;len - </option>
@@ -55,16 +76,14 @@
 
 		</select>
 	</div>
-
-	<div style="float:left; width:10px;">&nbsp;</div>
 	
-	<div style="float:left;">
+	<div class="box">
 		<h2>adminer</h2>
 		<select onchange="window.location.href='adminer/index.php?'+this.value">
 			<option value=""> - Version w&auml;len - </option>
 			<?php foreach ($aAdminerList AS $sVersion => $aEntrys) : ?>
 				<optgroup label="Version <?php echo str_replace("_", ".",$sVersion); ?>">
-					<option value="css=<?php echo $sFile; ?>&version=<?php echo $sVersion; ?>"><?php echo $sFile; ?></option>
+					<option value="version=<?php echo $sVersion; ?>">default</option>
 					<?php foreach ($aEntrys AS $sFile) : ?>
 						<option value="css=<?php echo $sFile; ?>&version=<?php echo $sVersion; ?>"><?php echo $sFile; ?></option>
 					<?php endforeach; ?>
