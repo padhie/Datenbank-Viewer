@@ -3,7 +3,7 @@
 $aPmaList = array();
 foreach (array_reverse(getListOfDir(__DIR__)) AS $sEntry) {
 	if (!strpos($sEntry, ".php") && !strpos($sEntry, ".html") && !strpos($sEntry, ".css")) {
-		$sGroup = substr($sEntry, 0, strpos($sEntry, "_"));
+		$sGroup = "Version ".substr($sEntry, 0, strpos($sEntry, "_")).".x";
 		if (!isset($aPmaList[$sGroup])) {
 			$aPmaList[$sGroup] = array();
 		}
