@@ -1,14 +1,16 @@
 <?php
-return array(
-	"4.x" => array(
-		"4.5.3" => "4_5_3_1",
-		"4.5.1" => "4_5_1",
-		"4.4.10" => "4_4_10",
-		"4.3.13" => "4_3_13_1",
-		"4.2.13" => "4_2_13_3",
-		"4.0.10" => "4_0_10_10",
-	),
-	"3.x" => array(
-		"3.5.3" => "3_5_3",
-	),
+
+$aPmaList = array(
+	"--- Version auswählen ---"
 );
+foreach (array_reverse(getListOfDir("pma/")) AS $sEntry) {
+	if (!strpos($sEntry, ".php") && !strpos($sEntry, ".html") && !strpos($sEntry, ".css")) {
+		$sGroup = substr($sEntry, 0, strpos($sEntry, "_"));
+		if (!isset($aPmaList[$sGroup])) {
+			$aPmaList[$sGroup] = array();
+		}
+		array_push($aPmaList[$sGroup], $sEntry);
+	}
+}
+
+return $aPmaList;
