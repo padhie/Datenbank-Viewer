@@ -11,6 +11,20 @@
 		return $aReturnFile;
 	}
 
+	$aApplicationList = array();
+	foreach (getListOfDir(__DIR__) AS $sElement) {
+		if (is_dir($sElement)) {
+			if ((strpos($sElement, ".") >= 1 || strpos($sElement, ".") === false) && (strpos($sElement, "_") >= 1 || strpos($sElement, "_") === false)) {
+				if ($sElement !== "README.md") {
+					
+					if (file_exists($sElement."/mainconfig.php")) {
+						$aApplicationList[$sElement] = include ($sElement."/mainconfig.php");
+					}
+				}
+			}
+		}
+	}
+	
 	$aPmaList = array();
 	foreach (array_reverse(getListOfDir("pma/")) AS $sEntry) {
 		if (!strpos($sEntry, ".php") && !strpos($sEntry, ".html") && !strpos($sEntry, ".css")) {
@@ -61,35 +75,26 @@
 	</style>
 </head>
 <body>
-	<div class="box">
-		<h2>phpMyAdmin</h2>
-		<select onchange="window.location.href='pma/'+this.value">
-			<option value=""> - Version w&auml;len - </option>
-			<?php foreach ($aPmaList AS $sVersion => $aEntrys) : ?>
-				<optgroup label="Version <?php echo $sVersion; ?>.x">
-					<?php foreach ($aEntrys AS $sDir) : ?>
-						<option value="<?php echo $sDir; ?>"><?php echo str_replace("_", ".",$sDir); ?></option>
-					<?php endforeach; ?>
-				</optgroup>
-			<?php endforeach; ?>
 
-
-		</select>
-	</div>
+	<?php foreach ($aApplicationList AS $mKeyL1 => $aApplication): ?>
+		<div class="box">
+			<h2><?php echo $mKeyL1; ?></h2>
+			<select onchange="window.location.href=this.value">
+				<option value=""> - Version w&auml;len - </option>
+				<?php foreach ($aApplication AS $mKeyL2 => $sValL2): ?>
+					<?php if (is_array($sValL2)): ?>
+						<optgroup label="<?php echo $mKeyL2; ?>">
+							<?php foreach ($sValL2 AS $mKeyL3 => $sValL3): ?>
+								<option value="<?php echo $sValL3; ?>"><?php echo $mKeyL3; ?></option>
+							<?php endforeach; ?>
+						</optgroup>
+					<?php else: ?>
+						<option value="<?php echo $sValL2; ?>"><?php echo $mKeyL2; ?></option>
+					<?php endif; ?>
+				<?php endforeach; ?>
+			</select>
+		</div>
+	<?php endforeach; ?>
 	
-	<div class="box">
-		<h2>adminer</h2>
-		<select onchange="window.location.href='adminer/index.php?'+this.value">
-			<option value=""> - Version w&auml;len - </option>
-			<?php foreach ($aAdminerList AS $sVersion => $aEntrys) : ?>
-				<optgroup label="Version <?php echo str_replace("_", ".",$sVersion); ?>">
-					<option value="version=<?php echo $sVersion; ?>">default</option>
-					<?php foreach ($aEntrys AS $sFile) : ?>
-						<option value="css=<?php echo $sFile; ?>&version=<?php echo $sVersion; ?>"><?php echo $sFile; ?></option>
-					<?php endforeach; ?>
-				</optgroup>
-			<?php endforeach; ?>
-		</select>
-	</div>
 </body>
 </html>
