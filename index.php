@@ -41,6 +41,7 @@ foreach (getListOfDir(__DIR__) AS $sElement) {
 			border: 2px solid rgba(2, 1, 1, 0.36);
 			padding: 25px;
 			text-align: center;
+			min-width: 150px;
 		}
 		body {
 			width: 700px ;
