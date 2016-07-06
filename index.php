@@ -1,53 +1,31 @@
 <?php
-	function getListOfDir($sDir) {
-		$aFiles = scandir($sDir);
-		$aReturnFile = array();
-		for ($i=0; $i<count($aFiles); $i++) {
-			if ($aFiles[$i] !== "." && $aFiles[$i] !== "..") {
-				array_push($aReturnFile, $aFiles[$i]);
-			}
-		}
-		unset($aFiles);
-		return $aReturnFile;
-	}
 
-	$aApplicationList = array();
-	foreach (getListOfDir(__DIR__) AS $sElement) {
-		if (is_dir($sElement)) {
-			if ((strpos($sElement, ".") >= 1 || strpos($sElement, ".") === false) && (strpos($sElement, "_") >= 1 || strpos($sElement, "_") === false)) {
-				if ($sElement !== "README.md") {
-					
-					if (file_exists($sElement."/mainconfig.php")) {
-						$aApplicationList[$sElement] = include ($sElement."/mainconfig.php");
-					}
+function getListOfDir($sDir) {
+	$aFiles = scandir($sDir);
+	$aReturnFile = array();
+	for ($i=0; $i<count($aFiles); $i++) {
+		if ($aFiles[$i] !== "." && $aFiles[$i] !== "..") {
+			array_push($aReturnFile, $aFiles[$i]);
+		}
+	}
+	unset($aFiles);
+	return $aReturnFile;
+}
+
+$aApplicationList = array();
+foreach (getListOfDir(__DIR__) AS $sElement) {
+	if (is_dir($sElement)) {
+		if ((strpos($sElement, ".") >= 1 || strpos($sElement, ".") === false) && (strpos($sElement, "_") >= 1 || strpos($sElement, "_") === false)) {
+			if ($sElement !== "README.md") {
+				
+				if (file_exists($sElement."/mainconfig.php")) {
+					$aApplicationList[$sElement] = include ($sElement."/mainconfig.php");
 				}
 			}
 		}
 	}
+}
 	
-	$aPmaList = array();
-	foreach (array_reverse(getListOfDir("pma/")) AS $sEntry) {
-		if (!strpos($sEntry, ".php") && !strpos($sEntry, ".html") && !strpos($sEntry, ".css")) {
-			$sGroup = substr($sEntry, 0, strpos($sEntry, "_"));
-			if (!isset($aPmaList[$sGroup])) {
-				$aPmaList[$sGroup] = array();
-			}
-			array_push($aPmaList[$sGroup], $sEntry);
-		}
-	}
-
-	$aAdminerList = array();
-	foreach (array_reverse(getListOfDir("adminer/")) AS $sVersion) {
-		if (!strpos($sVersion, ".php") && !strpos($sVersion, ".html") && !strpos($sVersion, ".css")) {
-			if (!isset($aAdminerList[$sVersion])) {
-				$aAdminerList[$sVersion] = array();
-			}
-			foreach (getListOfDir("adminer/" . $sVersion . "/css") AS $sFiles) {
-				$sFiles = str_replace(".css", "", $sFiles);
-				array_push($aAdminerList[$sVersion], $sFiles);
-			}
-		}
-	}
 ?>
 <html>
 <head>
