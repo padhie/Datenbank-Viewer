@@ -8,7 +8,7 @@ foreach (array_reverse(getListOfDir(__DIR__)) AS $sEntry) {
 			$aPmaList[$sGroup] = array();
 		}
 		$sDisplayName = str_replace("_", ".", $sEntry);
-		$aPmaList[$sGroup][$sDisplayName] = "/pma/".$sEntry."/";
+		$aPmaList[$sGroup][$sDisplayName] = "/phpmyadmin/".$sEntry."/";
 	}
 }
 
