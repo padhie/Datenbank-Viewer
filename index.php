@@ -1,8 +1,12 @@
 <?php
 
 function getListOfDir($sDir) {
-	$aFiles = scandir($sDir);
 	$aReturnFile = array();
+	$aFiles = array();
+	if (file_exists($sDir) && is_dir($sDir)) {
+		$aFiles = scandir($sDir);
+	}
+	if (is_dir($sDir))
 	for ($i=0; $i<count($aFiles); $i++) {
 		if ($aFiles[$i] !== "." && $aFiles[$i] !== "..") {
 			array_push($aReturnFile, $aFiles[$i]);
@@ -17,7 +21,7 @@ foreach (getListOfDir(__DIR__) AS $sElement) {
 	if (is_dir($sElement)) {
 		if ((strpos($sElement, ".") >= 1 || strpos($sElement, ".") === false) && (strpos($sElement, "_") >= 1 || strpos($sElement, "_") === false)) {
 			if ($sElement !== "README.md") {
-				
+
 				if (file_exists($sElement."/mainconfig.php")) {
 					$aApplicationList[$sElement] = include ($sElement."/mainconfig.php");
 				}
@@ -25,7 +29,7 @@ foreach (getListOfDir(__DIR__) AS $sElement) {
 		}
 	}
 }
-	
+
 ?>
 <html>
 <head>
@@ -74,6 +78,6 @@ foreach (getListOfDir(__DIR__) AS $sElement) {
 			</select>
 		</div>
 	<?php endforeach; ?>
-	
+
 </body>
 </html>
